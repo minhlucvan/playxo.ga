@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    entry: './src/main.jsx',
+    entry: './src/main.js',
     publicPath: './public',
     output: {
         path: path.join(__dirname, 'public'),
@@ -11,7 +11,7 @@ module.exports = {
 
         loaders: [
             {
-                test: /.jsx?$/,
+                test: /.js?$|.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {

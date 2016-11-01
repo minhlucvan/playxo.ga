@@ -1,0 +1,10 @@
+{
+  "langs": ["vi_VN"],
+  "source": "en_US",
+  "default": "en_US",
+  "resources": {
+    "vi_VN": {
+      "hello word": "xin chào"
+    }
+  }
+}
