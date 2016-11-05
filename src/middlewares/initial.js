@@ -1,52 +1,60 @@
 import * as actionType from '../actions/actionType.js';
 import Rx from 'rxjs';
-
-import Localize from "./localize.js";
+import Request from 'superagent';
 
 export  function initI18n(action, store){
-    let url = store.getState().localize.url
-    return Rx.Observable.fromPromise(fetch(url))
-        .map((res) => res.json())
-        .forEach(res => {
-            store.dispatch({type: actionType.LANGUAGE_LOADED, resources: res})
+    let url = store.getState().localize.url;
+    let ms = store.getState().config.ajaxTimeOut;;
+    let act = Rx.Observable.create((obsever) => {
+        Request.get(url)
+        .timeout(ms)
+        .end((err, res) => {
+            if(!err){
+                obsever.next(res);
+                obsever.complete(res);
+            } else {
+                obsever.error(err);
+            }
+            
         });
-}
+    });
 
-function attachI18n(option){
-    console.log('hi there');
-    window.localize = new Localize(this.state.resources);
-    if(typeof window._i === 'function') return;
-
-    window._i = function(text){
-        if(!window.localize || !window.localize.isReady ){
-            throw new Error("Localize is undefined of not ready.");
-        }
-
-        return window.localize.trans(text);
-    }
-}
-
-function setupI18n(action, store){
-    let opt = store.getState().localize;
-    return action.ofType(actionType.LANGUAGE_LOADED)
-        .do(()=>{
-            attachI18n(opt);
-        })
+    return act
+        .pluck("text")
+        .map(JSON.parse)
+        .map((payload) => ({type: actionType.LANGUAGE_LOADED, payload}) )
+        .do(store.dispatch)
         .mapTo({type: actionType.IGNORE});
 }
 
-function onStep(){
-    console.log('step done');
+function wrapProcess(items){
+    return Rx.Observable.of(items)
+        .concatAll();
 }
 
-function onStepFail(){
-    console.log('step fail');
-}
 export function init(action, store){
-    let i18n = initI18n(action, store);
+    function onStep(i){
+        //console.log('step done');
+    }
+
+    function onStepFail(e){
+
+    }
+
+    function onDone(){
+      //  console.log("all done");
+        //store.dispatch({type: actionType.APP_INIT_DONE, text: "call back"});
+    }
+
+    var observer = Rx.Subscriber.create(onStep, onStepFail, onDone);
+    var process = wrapProcess(initI18n(action, store));
+    process.subscribe(observer);
 
     return action.ofType(actionType.APP_INIT_START)
-        .merge(i18n)
-        .all(() => {type: actionType.APP_INIT_DONE})
-        .map(store.dispatch);
+        .switchMap(() => process)
+        .mapTo({type: actionType.APP_INIT_DONE})
+        .catch(payload => Rx.Observable.of({
+            type: actionType.APP_INIT_FAILE,
+            payload})
+        );
 }

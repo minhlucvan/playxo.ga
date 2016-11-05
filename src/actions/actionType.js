@@ -8,4 +8,9 @@ export const APP_INIT_LOCALIZE = "xo/APP_INIT_LOCALIZE";
 
 
 export const LANGUAGE_LOADED = "xo/LANGUAGE_LOADED";
+export const LANGUAGE_CHANGE = "xo/LANGUAGE_CHANGE";
 export const APP_READY = "xp/APP_READY";
+
+
+export const APP_INIT_FAILE = "xo/APP_INIT_FAILE";
+export const APP_LOAD_LANGUAGE_FAILE = "xo/APP_LOAD_LANGUAGE_FAILE";

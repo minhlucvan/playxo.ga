@@ -1,12 +1,7 @@
-import * as ActionType from "./../actions/actionType.js";
+import * as types from "./../actions/actionType.js";
+import app from './app-actions.js';
 
-export default class Action {
-    construct(type, payload){
-       if(!ActionType.hasOwnProperty(type)){
-            throw new Error("action type is not defined.");
-       }
-
-       this.type = type;
-       this.payload = payload;
-    }
-}
+export default {
+    types,
+    app
+};

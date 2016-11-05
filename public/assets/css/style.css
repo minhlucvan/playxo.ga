@@ -1,0 +1,85 @@
+.main-menu {
+	width: 600px;
+	height: 600px;
+}
+
+.main-menu .container{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	background-image: url('/public/assets/img/main-menu-border.png');
+	background-repeat: no-repeat;
+}
+
+.main-menu .container .content{
+	width: 80%;
+	height: 80%;
+	background-color: transparent;
+	background-image: url('/public/assets/img/main-menu-content-bg.png');
+	background-repeat: no-repeat;
+	position: absolute;
+    top: 116px;
+    left: 75px;
+}
+
+.main-menu .container .nav{
+    position: absolute;
+    top: 407px;
+    left: 26px;
+}
+
+.main-menu .container .nav .btn{
+    width: 113px;
+    height: 100px;
+    border: none;
+    background-color: transparent;
+
+	background-image: url('/public/assets/img/main-menu-nav-btn-disable.png'); 
+}
+
+.main-menu .container .nav .btn.active,
+.main-menu .container .nav .btn:hover{
+	background-image: url('/public/assets/img/main-menu-nav-btn-disable.png'); 
+	background-position: 50px 0; 
+}
+
+
+.main-menu .container .nav .btn::first-child.active,
+.main-menu .container .nav .btn::first-child:hover{
+	background-position: 0 0;  
+}
+
+
+.main-menu .container .nav .btn::last-child.active,
+.main-menu .container .nav .btn::last-child:hover{
+	background-position: 0 0;  
+}
+
+.main-menu .container .bullets{
+
+}
+
+.main-menu .container .bullets .bullet{
+	position: absolute;
+	top: 50%;
+	left: 26px;
+	width: 50px;
+	height: 50px;
+	background-color: transparent;
+	border: none;
+	background-image: url('/public/assets/img/main-menu-content-next-prev-btn.png'); 
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+.main-menu .container .bullets .bullet-next{
+	right: 0;
+	background-position: -34px 0;
+
+}
+
+.main-menu .container .bullets .bullet-prev{
+	left: 0;
+	background-position: 0px 0;
+}

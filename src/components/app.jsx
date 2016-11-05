@@ -4,17 +4,17 @@ import {connect} from 'react-redux';
 import Flash from './flash.jsx';
 import Playing from './playing.jsx';
 
-import Localize from './../middlewares/localize.js';
-
 class App extends React.Component{
-    constructor(props){
-        super(props);
+    constructor(props, context){
+        super(props, context);
         this.state = {};
+        this.store = props.store;
+        console.log(this.props.dispatch);
     }
 
     getContent(){
-        if(this.props.ready){
-            return <Playing />;
+        if(this.props.status.ready){
+            return  <Playing />
         } else {
             return <Flash />;
         }

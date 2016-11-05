@@ -44,7 +44,8 @@
     "redux-auth": "0.0.5-beta5",
     "redux-localstorage": "^0.4.1",
     "redux-observable": "^0.12.1",
-    "rxjs": "^5.0.0-rc.1"
+    "rxjs": "^5.0.0-rc.1",
+    "superagent": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
